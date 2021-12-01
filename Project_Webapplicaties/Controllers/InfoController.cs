@@ -6,24 +6,14 @@ using System.Threading.Tasks;
 
 namespace Project_Webapplicaties.Controllers
 {
-    public class GearController : Controller
+    public class InfoController : Controller
     {
         public IActionResult Index()
         {
             return View();
         }
 
-        public IActionResult Details()
-        {
-            return View();
-        }
-
-        public IActionResult Edit()
-        {
-            return View();
-        }
-
-        public IActionResult Create()
+        public IActionResult Information()
         {
             return View();
         }

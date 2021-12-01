@@ -1,0 +1,120 @@
+﻿@{ 
+    ViewData["Title"] = "Create";
+}
+
+<h1>Creëer nieuwe uitrusting</h1>
+
+<p>moet nog authorized worden</p>
+
+<div class="container">
+    <form>
+        <div class="row">
+            <label class="col-6">Naam*</label>
+            <input type="text"  class="col-6"/>
+        </div>
+        <div class="row">
+            <label class="col-6">Geartype*</label>
+            <div class="col-6">
+                <select class="custom-select">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-6">Tier</label>
+            <div class="col-6">
+                <select class="custom-select">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-6">Rank*</label>
+            <div class="col-6">
+                <select class="custom-select">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <label class="col-6">Element</label>
+            <div class="col-6">
+                <select class="custom-select">
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Attack</th>
+                        <th>Health</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" />
+                        </td>
+                        <td>
+                            <input type="text" />
+                        </td>
+                        <td>
+                            <input type="text" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>BaseTotal*</th>
+                        <th>Upgrade 1*</th>
+                        <th>Upgrade 2</th>
+                        <th>Upgrade 3</th>
+                        <th>Upgrade 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" />
+                        </td>
+                        <td>
+                            <input type="number" />
+                        </td>
+                        <td>
+                            <input type="number" />
+                        </td>
+                        <td>
+                            <input type="number" />
+                        </td>
+                        <td>
+                            <input type="number" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            <button type="button">Voeg Bonus Toe</button>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Bonus 1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Bonus Uitleg</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit">Voeg Toe</button>
+        </div>
+    </form>
+</div>
