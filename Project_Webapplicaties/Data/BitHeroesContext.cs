@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Project_Webapplicaties.Models;
 using System;
 using System.Collections.Generic;
@@ -7,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Project_Webapplicaties.Data
 {
-    public class BitHeroesContext: DbContext
+    public class BitHeroesContext: IdentityDbContext<IdentityUser>
     {
         public BitHeroesContext(DbContextOptions<BitHeroesContext> options): base(options)
         {
@@ -24,6 +26,10 @@ namespace Project_Webapplicaties.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.HasDefaultSchema("BitHeroes");
+
             modelBuilder.Entity<Gear>().ToTable("Gear");
             modelBuilder.Entity<Gear>().Property(p => p.Name).IsRequired();
             modelBuilder.Entity<Geartype>().ToTable("Geartype");
