@@ -10,13 +10,14 @@ using Project_Webapplicaties.Data;
 namespace Project_Webapplicaties.Migrations
 {
     [DbContext(typeof(BitHeroesContext))]
-    [Migration("20211209134227_initialcreate")]
+    [Migration("20220107161442_initialcreate")]
     partial class initialcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasDefaultSchema("BitHeroes")
                 .HasAnnotation("ProductVersion", "3.1.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);

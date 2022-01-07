@@ -8,11 +8,6 @@ namespace Project_Webapplicaties.Controllers
 {
     public class InfoController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         public IActionResult Information()
         {
             return View();

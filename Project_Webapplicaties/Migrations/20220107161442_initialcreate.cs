@@ -7,8 +7,12 @@ namespace Project_Webapplicaties.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.EnsureSchema(
+                name: "BitHeroes");
+
             migrationBuilder.CreateTable(
                 name: "AspNetRoles",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -23,6 +27,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUsers",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
@@ -48,6 +53,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "BaseStatTotal",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     BaseStatTotalID = table.Column<int>(nullable: false)
@@ -65,6 +71,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Bonus",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     BonusID = table.Column<int>(nullable: false)
@@ -78,6 +85,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Element",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     ElementID = table.Column<int>(nullable: false)
@@ -93,6 +101,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Geartype",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     GeartypeID = table.Column<int>(nullable: false)
@@ -106,6 +115,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Rank",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     RankID = table.Column<int>(nullable: false)
@@ -119,6 +129,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -133,6 +144,7 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -140,6 +152,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserClaims",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -154,6 +167,7 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserClaims_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -161,6 +175,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserLogins",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
@@ -174,6 +189,7 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserLogins_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -181,6 +197,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserRoles",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -192,12 +209,14 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetRoles_RoleId",
                         column: x => x.RoleId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -205,6 +224,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "AspNetUserTokens",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
@@ -218,6 +238,7 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_AspNetUserTokens_AspNetUsers_UserId",
                         column: x => x.UserId,
+                        principalSchema: "BitHeroes",
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -225,6 +246,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Gear",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     GearID = table.Column<int>(nullable: false)
@@ -246,24 +268,28 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_Gear_BaseStatTotal_BaseStatTotalID",
                         column: x => x.BaseStatTotalID,
+                        principalSchema: "BitHeroes",
                         principalTable: "BaseStatTotal",
                         principalColumn: "BaseStatTotalID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gear_Element_ElementID",
                         column: x => x.ElementID,
+                        principalSchema: "BitHeroes",
                         principalTable: "Element",
                         principalColumn: "ElementID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gear_Geartype_GeartypeID",
                         column: x => x.GeartypeID,
+                        principalSchema: "BitHeroes",
                         principalTable: "Geartype",
                         principalColumn: "GeartypeID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gear_Rank_RankID",
                         column: x => x.RankID,
+                        principalSchema: "BitHeroes",
                         principalTable: "Rank",
                         principalColumn: "RankID",
                         onDelete: ReferentialAction.Cascade);
@@ -271,6 +297,7 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateTable(
                 name: "Gear_Bonus",
+                schema: "BitHeroes",
                 columns: table => new
                 {
                     Gear_BonusID = table.Column<int>(nullable: false)
@@ -284,12 +311,14 @@ namespace Project_Webapplicaties.Migrations
                     table.ForeignKey(
                         name: "FK_Gear_Bonus_Bonus_BonusID",
                         column: x => x.BonusID,
+                        principalSchema: "BitHeroes",
                         principalTable: "Bonus",
                         principalColumn: "BonusID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Gear_Bonus_Gear_GearID",
                         column: x => x.GearID,
+                        principalSchema: "BitHeroes",
                         principalTable: "Gear",
                         principalColumn: "GearID",
                         onDelete: ReferentialAction.Cascade);
@@ -297,11 +326,13 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
+                schema: "BitHeroes",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
+                schema: "BitHeroes",
                 table: "AspNetRoles",
                 column: "NormalizedName",
                 unique: true,
@@ -309,26 +340,31 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
+                schema: "BitHeroes",
                 table: "AspNetUserClaims",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserLogins_UserId",
+                schema: "BitHeroes",
                 table: "AspNetUserLogins",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserRoles_RoleId",
+                schema: "BitHeroes",
                 table: "AspNetUserRoles",
                 column: "RoleId");
 
             migrationBuilder.CreateIndex(
                 name: "EmailIndex",
+                schema: "BitHeroes",
                 table: "AspNetUsers",
                 column: "NormalizedEmail");
 
             migrationBuilder.CreateIndex(
                 name: "UserNameIndex",
+                schema: "BitHeroes",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true,
@@ -336,31 +372,37 @@ namespace Project_Webapplicaties.Migrations
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_BaseStatTotalID",
+                schema: "BitHeroes",
                 table: "Gear",
                 column: "BaseStatTotalID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_ElementID",
+                schema: "BitHeroes",
                 table: "Gear",
                 column: "ElementID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_GeartypeID",
+                schema: "BitHeroes",
                 table: "Gear",
                 column: "GeartypeID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_RankID",
+                schema: "BitHeroes",
                 table: "Gear",
                 column: "RankID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_Bonus_BonusID",
+                schema: "BitHeroes",
                 table: "Gear_Bonus",
                 column: "BonusID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Gear_Bonus_GearID",
+                schema: "BitHeroes",
                 table: "Gear_Bonus",
                 column: "GearID");
         }
@@ -368,46 +410,60 @@ namespace Project_Webapplicaties.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AspNetRoleClaims");
+                name: "AspNetRoleClaims",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserClaims");
+                name: "AspNetUserClaims",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserLogins");
+                name: "AspNetUserLogins",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserRoles");
+                name: "AspNetUserRoles",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUserTokens");
+                name: "AspNetUserTokens",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Gear_Bonus");
+                name: "Gear_Bonus",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetRoles");
+                name: "AspNetRoles",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "AspNetUsers");
+                name: "AspNetUsers",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Bonus");
+                name: "Bonus",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Gear");
+                name: "Gear",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "BaseStatTotal");
+                name: "BaseStatTotal",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Element");
+                name: "Element",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Geartype");
+                name: "Geartype",
+                schema: "BitHeroes");
 
             migrationBuilder.DropTable(
-                name: "Rank");
+                name: "Rank",
+                schema: "BitHeroes");
         }
     }
 }
