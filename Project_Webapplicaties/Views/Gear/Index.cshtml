@@ -1,4 +1,5 @@
-﻿@{
+﻿@model Project_Webapplicaties.ViewModels.OverviewListViewModel
+@{
     ViewData["Title"] = "All Gear";
 }
 
@@ -8,26 +9,39 @@
     <form>
         <div class="row">
             <div class="col">
-                <input type="text" placeholder="Zoeken"/>
+                <input type="text" asp-for="SearchResult" placeholder="Zoeken" />
             </div>
             <div class="col">
-                <select class="custom-select">
-
+                <select class="custom-select" asp-for="@Model.RankSelection">
+                    <option></option>
+                    @foreach (var item in Model.Ranks)
+                    {
+                        <option>@item.Name</option>
+                    }
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select">
-
+                <select class="custom-select" asp-for="@Model.TypeSelection">
+                    <option></option>
+                    @foreach (var item in Model.Geartypes)
+                    {
+                        <option>@item.Name</option>
+                    }
                 </select>
             </div>
             <div class="col">
-                <select class="custom-select">
-
+                <select class="custom-select" asp-for="@Model.TierSelection">
+                    <option></option>
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
                 </select>
             </div>
         </div>
         <div class="row">
-            <button type="submit">Zoeken</button>
+            <button type="submit" class="btn-block" asp-controller="Gear" asp-action="Filter">Zoeken</button>
         </div>
     </form>
 </div>
@@ -40,33 +54,44 @@
                 <th>Rank</th>
                 <th>Tier</th>
                 <th>Geartype</th>
+                @if (this.User.Identity.IsAuthenticated)
+                {
+                    <th>Delete</th>
+                }
+                <th>Details</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>naam</td>
-                <td>rank</td>
-                <td>2</td>
-                <td>Geartype</td>
-            </tr>
-            <tr>
-                <td>naam</td>
-                <td>rank</td>
-                <td>3</td>
-                <td>Geartype</td>
-            </tr>
-            <tr>
-                <td>naam</td>
-                <td>rank</td>
-                <td>4</td>
-                <td>Geartype</td>
-            </tr>
-            <tr>
-                <td>naam</td>
-                <td>rank</td>
-                <td>5</td>
-                <td>Geartype</td>
-            </tr>
+            @foreach (var item in Model.Gears)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Rank.Name
+                    </td>
+                    <td>
+                        @item.Tier.ToString()
+                    </td>
+                    <td>
+                        @item.Geartype.Name
+                    </td>
+                    @if (this.User.Identity.IsAuthenticated)
+                    {
+                        <td>
+                            <button asp-controller="Gear" asp-action="Delete" asp-route-id="@item.GearID">Delete</button>
+                        </td>
+                    }
+                    <td>
+                        <button asp-controller="Gear" asp-action="Details" asp-route-id="@item.GearID">Details</button>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 </div>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

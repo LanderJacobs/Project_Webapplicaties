@@ -1,15 +1,28 @@
-﻿@{
+﻿@model Project_Webapplicaties.ViewModels.DetailsViewModel
+@{
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Details van @Model.gear.Name</h1>
 
 <div>
-    <h3>Naam</h3>
-    <p>Geartype:</p>
-    <p>Tier:</p>
-    <p>Element:</p>
-    <p>"Rank"</p>
+    <h3>@Model.gear.Name</h3>
+    <div>
+        <p>Geartype:</p>
+        <label>@Model.gear.Geartype.Name</label>
+    </div>
+    <div>
+        <p>Tier:</p>
+        <label>@Model.gear.Tier</label>
+    </div>
+    <div>
+        <p>Element:</p>
+        <label>@Model.gear.Element.Name</label>
+    </div>
+    <div>
+        <p>Rank:</p>
+        <label>@Model.gear.Rank.Name</label>
+    </div>
 
     <div class="row">
         <table class="table">
@@ -23,13 +36,13 @@
             <tbody>
                 <tr>
                     <td>
-                        <input type="text" />
+                        <label>@Model.gear.BaseAttack</label>
                     </td>
                     <td>
-                        <input type="text" />
+                        <label>@Model.gear.BaseHealth</label>
                     </td>
                     <td>
-                        <input type="text" />
+                        <label>@Model.gear.BaseSpeed</label>
                     </td>
                 </tr>
             </tbody>
@@ -40,23 +53,43 @@
             <thead>
                 <tr>
                     <th>BaseTotal*</th>
-                    <th>Upgrade 1*</th>
-                    <th>Upgrade 2</th>
-                    <th>Upgrade 3</th>
-                    <th>Upgrade 4</th>
+                        <th>Upgrade 1*</th>
+                        @if (Model.gear.BaseStatTotal.Upgrade2 != null)
+                        {
+                            <th>Upgrade 2</th>
+                            if (Model.gear.BaseStatTotal.Upgrade3 != null)
+                            {
+                                <th>Upgrade 3</th>
+                                if (Model.gear.BaseStatTotal.Upgrade4 != null)
+                                {
+                                    <th>Upgrade 4</th>
+                                }
+                            }
+                        }
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>0</td>
-                    <td>1</td>
-                    <td>2</td>
-                    <td>3</td>
-                    <td>4</td>
+                    <td>@Model.gear.BaseStatTotal.Base</td>
+                        <td>@Model.gear.BaseStatTotal.Upgrade1</td>
+                        @if (Model.gear.BaseStatTotal.Upgrade2 != null)
+                        {
+                            <td>@Model.gear.BaseStatTotal.Upgrade2</td>
+                            if (Model.gear.BaseStatTotal.Upgrade3 != null)
+                            {
+                                <td>@Model.gear.BaseStatTotal.Upgrade3</td>
+                                if (Model.gear.BaseStatTotal.Upgrade4 != null)
+                                {
+                                    <td>@Model.gear.BaseStatTotal.Upgrade4</td>
+                                }
+                            }
+                        }
                 </tr>
             </tbody>
         </table>
     </div>
+    @if (Model.Bonussen != null)
+    {
     <div class="row">
         <table class="table">
             <thead>
@@ -66,9 +99,13 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Bonus Uitleg</td>
+                    @foreach (var item in Model.Bonussen)
+                    {
+                        <td>@item.Explanation</td>
+                    }
                 </tr>
             </tbody>
         </table>
     </div>
+    }
 </div>
