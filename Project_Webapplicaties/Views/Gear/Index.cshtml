@@ -7,9 +7,9 @@
 
 <div class="container">
     <form>
-        <div class="row">
+        <div class="row mb-4">
             <div class="col">
-                <input type="text" asp-for="SearchResult" placeholder="Zoeken" />
+                <input type="text" asp-for="SearchResult" placeholder="Zoeken" class="form-control"/>
             </div>
             <div class="col">
                 <select class="custom-select" asp-for="@Model.RankSelection">
@@ -40,15 +40,15 @@
                 </select>
             </div>
         </div>
-        <div class="row">
-            <button type="submit" class="btn-block" asp-controller="Gear" asp-action="Filter">Zoeken</button>
+        <div class="row mb-4">
+            <button type="submit" class="form-control btn-primary" asp-controller="Gear" asp-action="Filter">Zoeken</button>
         </div>
     </form>
 </div>
 
 <div class="container">
-    <table class="table">
-        <thead>
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th>Naam</th>
                 <th>Rank</th>
@@ -80,11 +80,11 @@
                     @if (this.User.Identity.IsAuthenticated)
                     {
                         <td>
-                            <button asp-controller="Gear" asp-action="Delete" asp-route-id="@item.GearID">Delete</button>
+                            <a asp-controller="Gear" asp-action="Delete" asp-route-id="@item.GearID">Delete</a>
                         </td>
                     }
                     <td>
-                        <button asp-controller="Gear" asp-action="Details" asp-route-id="@item.GearID">Details</button>
+                        <a asp-controller="Gear" asp-action="Details" asp-route-id="@item.GearID">Details</a>
                     </td>
                 </tr>
             }

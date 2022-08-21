@@ -8,20 +8,20 @@
 <div>
     <h3>@Model.gear.Name</h3>
     <div>
-        <p>Geartype:</p>
-        <label>@Model.gear.Geartype.Name</label>
+        <p class="font-weight-bold text-center">Geartype:</p>
+        <p class="text-center">@Model.gear.Geartype.Name</p>
     </div>
     <div>
-        <p>Tier:</p>
-        <label>@Model.gear.Tier</label>
+        <p class="font-weight-bold text-center">Tier:</p>
+        <p class="text-center">@Model.gear.Tier</p>
     </div>
     <div>
-        <p>Element:</p>
-        <label>@Model.gear.Element.Name</label>
+        <p class="font-weight-bold text-center">Element:</p>
+        <p class="text-center">@Model.gear.Element.Name</p>
     </div>
     <div>
-        <p>Rank:</p>
-        <label>@Model.gear.Rank.Name</label>
+        <p class="font-weight-bold text-center">Rank:</p>
+        <p class="text-center">@Model.gear.Rank.Name</p>
     </div>
 
     <div class="row">
@@ -52,8 +52,8 @@
         <table class="table">
             <thead>
                 <tr>
-                    <th>BaseTotal*</th>
-                        <th>Upgrade 1*</th>
+                    <th>BaseTotal</th>
+                        <th>Upgrade 1</th>
                         @if (Model.gear.BaseStatTotal.Upgrade2 != null)
                         {
                             <th>Upgrade 2</th>

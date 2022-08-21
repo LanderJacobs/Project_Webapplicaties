@@ -30,7 +30,7 @@ namespace Project_Webapplicaties.Controllers
             return View(vm);
         }
 
-        public async Task<IActionResult> Details(DetailsViewModel vm, int id)
+        public IActionResult Details(DetailsViewModel vm, int id)
         {
             vm.gear = _uow.GearRepository.GetbyQuestionWithIncludes(x => x.GearID == id, x => x.Rank, x => x.Geartype, x => x.Element, x => x.BaseStatTotal);
             List<Gear_Bonus> lijst = _uow.GearBonusRepository.GetAllWithQuestionAndIncludes(x => x.GearID == id, x => x.Bonus).ToList();
@@ -43,8 +43,8 @@ namespace Project_Webapplicaties.Controllers
 
         public IActionResult Edit()
         {
-            //deze pagina is niet aangemaakt door een slechte inschatting van tijd
-            return View();
+            EditViewModel vm = new EditViewModel();
+            return View(vm);
         }
 
         public IActionResult Create()
@@ -56,9 +56,68 @@ namespace Project_Webapplicaties.Controllers
             return View(vm);
         }
 
+        public IActionResult AddProperties()
+        {
+            AddPropertiesViewModel vm = new AddPropertiesViewModel();
+            return View(vm);
+        }
+
+        public IActionResult AddPropertiesUsed(AddPropertiesViewModel vm)
+        {
+            return View(vm);
+        }
+
+        public IActionResult AddGearType(AddPropertiesViewModel vm)
+        {
+            if (string.IsNullOrEmpty(vm.GearType) == false)
+            {
+                Geartype geartype = new Geartype();
+                geartype.Name = vm.GearType;
+                _uow.GeartypeRepository.Create(geartype);
+                _uow.Save();
+                vm.GearType = "";
+            }
+
+            return RedirectToAction(nameof(AddProperties));
+        }
+
+        public IActionResult AddRank(AddPropertiesViewModel vm)
+        {
+            if (string.IsNullOrEmpty(vm.Rank) == false)
+            {
+                Rank rank = new Rank();
+                rank.Name = vm.Rank;
+                _uow.RankRepository.Create(rank);
+                _uow.Save();
+                vm.Rank = "";
+            }
+
+            return RedirectToAction(nameof(AddProperties));
+        }
+
+        public IActionResult AddElement(AddPropertiesViewModel vm)
+        {
+            if (string.IsNullOrEmpty(vm.Element) == false &&
+                string.IsNullOrEmpty(vm.WeakTo) == false &&
+                string.IsNullOrEmpty(vm.StrongTo) == false)
+            {
+                Element element = new Element();
+                element.Name = vm.Element;
+                element.WeakTo = vm.WeakTo;
+                element.StrongTo = vm.StrongTo;
+                _uow.ElementRepository.Create(element);
+                _uow.Save();
+                vm.Element = "";
+                vm.WeakTo = "";
+                vm.StrongTo = "";
+            }
+
+            return RedirectToAction(nameof(AddProperties));
+        }
+
         public IActionResult VoegToe(CreateViewModel vm)
         {
-            if (string.IsNullOrEmpty(vm.Naam) != false)
+            if (string.IsNullOrEmpty(vm.Naam) == false)
             {
                 Gear gear = new Gear();
                 gear.Name = vm.Naam;
@@ -77,77 +136,112 @@ namespace Project_Webapplicaties.Controllers
                     gear.BaseHealth = int.Parse(vm.BaseHealth);
                     gear.BaseSpeed = int.Parse(vm.BaseSpeed);
 
-                    if (string.IsNullOrEmpty(vm.Upgrade1) != false)
+                    if (string.IsNullOrEmpty(vm.Upgrade1) == false)
                     {
-                        gear.BaseStatTotal.Base = gear.BaseAttack.GetValueOrDefault() + gear.BaseSpeed.GetValueOrDefault() + gear.BaseHealth.GetValueOrDefault();
-                        gear.BaseStatTotal.Upgrade1 = int.Parse(vm.Upgrade1);
+                        BaseStatTotal basis = new BaseStatTotal();
+                        basis.Base = gear.BaseAttack.GetValueOrDefault() + gear.BaseSpeed.GetValueOrDefault() + gear.BaseHealth.GetValueOrDefault();
+                        basis.Upgrade1 = int.Parse(vm.Upgrade1);
 
-                        if (string.IsNullOrEmpty(vm.Upgrade2) != false)
+                        if (string.IsNullOrEmpty(vm.Upgrade2) == false)
                         {
-                            gear.BaseStatTotal.Upgrade2 = int.Parse(vm.Upgrade2);
+                            basis.Upgrade2 = int.Parse(vm.Upgrade2);
 
-                            if (string.IsNullOrEmpty(vm.Upgrade3) != false)
+                            if (string.IsNullOrEmpty(vm.Upgrade3) == false)
                             {
-                                gear.BaseStatTotal.Upgrade3 = int.Parse(vm.Upgrade3);
+                                basis.Upgrade3 = int.Parse(vm.Upgrade3);
 
-                                if (string.IsNullOrEmpty(vm.Upgrade4) != false)
+                                if (string.IsNullOrEmpty(vm.Upgrade4) == false)
                                 {
-                                    gear.BaseStatTotal.Upgrade4 = int.Parse(vm.Upgrade4);
+                                    basis.Upgrade4 = int.Parse(vm.Upgrade4);
                                 }
                             }
                         }
-
+                        _uow.BaseStatTotalRepository.Create(basis);
+                        gear.BaseStatTotalID = basis.BaseStatTotalID;
                     }
                 }
                 #endregion
 
-                if (string.IsNullOrEmpty(vm.Element) != false)
+                if (string.IsNullOrEmpty(vm.Element) == false)
                 {
-                    gear.Element.Name = vm.Element;
-                }
-
-                if (string.IsNullOrEmpty(vm.Rank) != false)
-                {
-                    gear.Rank.Name = vm.Rank;
-                }
-
-                if (string.IsNullOrEmpty(vm.GearType) != false)
-                {
-                    gear.Geartype.Name = vm.GearType;
-                }
-
-                int bonusID = 0;
-                if (string.IsNullOrEmpty(vm.bonus) != false)
-                {
-                    List<Bonus> bonussen = _uow.BonusRepository.Getall().ToList();
-                    Bonus bonus = new Bonus();
-                    foreach (var item in bonussen)
+                    //Element element = _uow.ElementRepository.GetByIdWithQuestion(x => x.Name == vm.Element);
+                    Element element = new Element();
+                    foreach (Element item in vm.ElementList)
                     {
-                        if (item.Explanation == vm.bonus)
+                        if (item.Name == vm.Element)
                         {
-                            bonus = item;
+                            element = item;
                         }
                     }
-                    if (string.IsNullOrEmpty(bonus.Explanation))
-                    {
-                        bonus.Explanation = vm.bonus;
-                        _uow.BonusRepository.Create(bonus);
-                        bonus = _uow.BonusRepository.GetByIdWithQuestion(x => x.Explanation == bonus.Explanation);
-                        bonusID = bonus.BonusID;
-                    }
-
+                    gear.ElementID = element.ElementID;
                 }
+
+                if (string.IsNullOrEmpty(vm.Rank) == false)
+                {
+                    //Rank rank = _uow.RankRepository.GetByIdWithQuestion(x => x.Name == vm.Rank);
+                    Rank rank = new Rank();
+                    foreach (Rank item in vm.RankList)
+                    {
+                        if (item.Name == vm.Rank)
+                        {
+                            rank = item;
+                        }
+                    }
+                    gear.RankID = rank.RankID;
+                }
+
+                if (string.IsNullOrEmpty(vm.GearType) == false)
+                {
+                    //Geartype geartype = _uow.GeartypeRepository.GetByIdWithQuestion(x => x.Name == vm.GearType);
+                    Geartype geartype = new Geartype();
+                    foreach (Geartype item in vm.GeartypeList)
+                    {
+                        if (item.Name == vm.GearType)
+                        {
+                            geartype = item;
+                        }
+                    }
+                    gear.GeartypeID = geartype.GeartypeID;
+                }
+
+                //checken of bonus al bestaat of moet aangemaakt worden + aanmaken
+
+                //int bonusID = 0;
+                //if (string.IsNullOrEmpty(vm.bonus) == false)
+                //{
+                //    List<Bonus> bonussen = _uow.BonusRepository.Getall().ToList();
+                //    Bonus bonus = new Bonus();
+                //    foreach (var item in bonussen)
+                //    {
+                //        if (item.Explanation == vm.bonus)
+                //        {
+                //            bonus = item;
+                //        }
+                //    }
+
+                //    if (string.IsNullOrEmpty(bonus.Explanation))
+                //    {
+                //        bonus.Explanation = vm.bonus;
+                //        _uow.BonusRepository.Create(bonus);
+                //        bonus = _uow.BonusRepository.GetByIdWithQuestion(x => x.Explanation == bonus.Explanation);
+                //        bonusID = bonus.BonusID;
+                //    }
+                //}
+
+                //maak gear aan
 
                 _uow.GearRepository.Create(gear);
                 _uow.Save();
 
-                if (bonusID != 0)
-                {
-                    gear = _uow.GearRepository.GetByIdWithQuestion(x => x.Name == gear.Name);
-                    Gear_Bonus gb = new Gear_Bonus { BonusID = bonusID, GearID = gear.GearID };
-                    _uow.GearBonusRepository.Create(gb);
-                    _uow.Save();
-                }
+                //connectie leggen tussen gear en bonus
+
+                //if (bonusID != 0)
+                //{
+                //    gear = _uow.GearRepository.GetByIdWithQuestion(x => x.Name == gear.Name);
+                //    Gear_Bonus gb = new Gear_Bonus { BonusID = bonusID, GearID = gear.GearID };
+                //    _uow.GearBonusRepository.Create(gb);
+                //    _uow.Save();
+                //}
 
                 return RedirectToAction(nameof(Index));
             }
@@ -157,20 +251,27 @@ namespace Project_Webapplicaties.Controllers
 
         public IActionResult Filter(OverviewListViewModel vm)
         {
-            if (vm.SearchResult != "" && vm.RankSelection != "" && vm.TypeSelection != "" && vm.TierSelection != "")
+            if (string.IsNullOrEmpty(vm.SearchResult) == false)
             {
                 vm.Gears = vm.Gears.Where(x => x.Name.Contains(vm.SearchResult)).ToList();
-                vm.Gears = vm.Gears.Where(x => x.Rank.Name == vm.RankSelection).ToList();
-                vm.Gears = vm.Gears.Where(x => x.Geartype.Name == vm.TypeSelection).ToList();
-                if (vm.TierSelection != null)
-                {
-                    vm.Gears = vm.Gears.Where(x => x.Tier == int.Parse(vm.TierSelection)).ToList();
-                }
+
             }
-            else
+
+            if (string.IsNullOrEmpty(vm.RankSelection) == false)
             {
-                return RedirectToAction(nameof(Index));
+                vm.Gears = vm.Gears.Where(x => x.Rank.Name == vm.RankSelection).ToList();
             }
+
+            if (string.IsNullOrEmpty(vm.TypeSelection) == false)
+            {
+                vm.Gears = vm.Gears.Where(x => x.Geartype.Name == vm.TypeSelection).ToList();
+            }
+
+            if (vm.TierSelection != null)
+            {
+                vm.Gears = vm.Gears.Where(x => x.Tier == int.Parse(vm.TierSelection)).ToList();
+            }
+
             return View("Index", vm);
         }
 
@@ -185,7 +286,6 @@ namespace Project_Webapplicaties.Controllers
             if (gear != null)
             {
                 _uow.GearRepository.Delete(gear);
-                vm.Gears = vm.Gears.Where(x => x.GearID != id).ToList();
                 await _uow.Save();
             }
             return View("Index", vm);

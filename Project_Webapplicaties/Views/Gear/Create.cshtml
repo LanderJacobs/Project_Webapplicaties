@@ -7,13 +7,13 @@
 
 <div class="container">
     <form>
-        <div class="row justify-content-center">
+        <div class="row mt-2">
             <div class="col-6">
                 <label>Naam*</label>
             </div>   
-            <input type="text" asp-for="Naam" class="col-6"/>
+            <input type="text" asp-for="Naam" class="col-6 form-control"/>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <label class="col-6">Geartype*</label>
             <div class="col-6">
                 <select class="custom-select" asp-for="GearType">
@@ -24,8 +24,8 @@
                 </select>
             </div>
         </div>
-        <div class="row">
-            <label class="col-6">Tier</label>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Tier</label>
             <div class="col-6">
                 <select class="custom-select" asp-for="Tier">
                     <option>1</option>
@@ -36,8 +36,8 @@
                 </select>
             </div>
         </div>
-        <div class="row">
-            <label class="col-6">Rank*</label>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Rank*</label>
             <div class="col-6">
                 <select class="custom-select" asp-for="Rank">
                     @foreach (var item in Model.RankList)
@@ -47,8 +47,8 @@
                 </select>
             </div>
         </div>
-        <div class="row">
-            <label class="col-6">Element</label>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Element</label>
             <div class="col-6">
                 <select class="custom-select">
                     @foreach (var item in Model.ElementList)
@@ -58,7 +58,7 @@
                 </select>
             </div>
         </div>
-        <div class="row">
+        <div class="row mt-2">
             <table class="table">
                 <thead>
                     <tr>
@@ -70,13 +70,13 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" asp-for="BaseAttack"/>
+                            <input type="text" asp-for="BaseAttack" class="form-control"/>
                         </td>
                         <td>
-                            <input type="text" asp-for="BaseHealth"/>
+                            <input type="text" asp-for="BaseHealth" class="form-control"/>
                         </td>
                         <td>
-                            <input type="text" asp-for="BaseSpeed"/>
+                            <input type="text" asp-for="BaseSpeed" class="form-control"/>
                         </td>
                     </tr>
                 </tbody>
@@ -95,16 +95,16 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="number" asp-for="Upgrade1"/>
+                            <input type="number" asp-for="Upgrade1" class="form-control"/>
                         </td>
                         <td>
-                            <input type="number" asp-for="Upgrade2"/>
+                            <input type="number" asp-for="Upgrade2" class="form-control"/>
                         </td>
                         <td>
-                            <input type="number" asp-for="Upgrade3"/>
+                            <input type="number" asp-for="Upgrade3" class="form-control"/>
                         </td>
                         <td>
-                            <input type="number" asp-for="Upgrade4"/>
+                            <input type="number" asp-for="Upgrade4" class="form-control"/>
                         </td>
                     </tr>
                 </tbody>
@@ -120,14 +120,14 @@
                 <tbody>
                     <tr>
                         <td>
-                            <input type="text" asp-for="bonus"/>
+                            <input type="text" asp-for="bonus" class="form-control"/>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div class="row justify-content-center">
-            <button type="submit" asp-controller="Gear" asp-action="VoegToe">Voeg Toe</button>
+            <button type="submit" asp-controller="Gear" asp-action="VoegToe" class="form-control btn-primary">Voeg Toe</button>
         </div>
     </form>
 </div>
