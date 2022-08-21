@@ -1,0 +1,111 @@
+﻿@model Project_Webapplicaties.ViewModels.DetailsViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details van @Model.gear.Name</h1>
+
+<div>
+    <h3>@Model.gear.Name</h3>
+    <div>
+        <p class="font-weight-bold text-center">Geartype:</p>
+        <p class="text-center">@Model.gear.Geartype.Name</p>
+    </div>
+    <div>
+        <p class="font-weight-bold text-center">Tier:</p>
+        <p class="text-center">@Model.gear.Tier</p>
+    </div>
+    <div>
+        <p class="font-weight-bold text-center">Element:</p>
+        <p class="text-center">@Model.gear.Element.Name</p>
+    </div>
+    <div>
+        <p class="font-weight-bold text-center">Rank:</p>
+        <p class="text-center">@Model.gear.Rank.Name</p>
+    </div>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Attack</th>
+                    <th>Health</th>
+                    <th>Speed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <label>@Model.gear.BaseAttack</label>
+                    </td>
+                    <td>
+                        <label>@Model.gear.BaseHealth</label>
+                    </td>
+                    <td>
+                        <label>@Model.gear.BaseSpeed</label>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>BaseTotal</th>
+                        <th>Upgrade 1</th>
+                        @if (Model.gear.BaseStatTotal.Upgrade2 != null)
+                        {
+                            <th>Upgrade 2</th>
+                            if (Model.gear.BaseStatTotal.Upgrade3 != null)
+                            {
+                                <th>Upgrade 3</th>
+                                if (Model.gear.BaseStatTotal.Upgrade4 != null)
+                                {
+                                    <th>Upgrade 4</th>
+                                }
+                            }
+                        }
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.gear.BaseStatTotal.Base</td>
+                        <td>@Model.gear.BaseStatTotal.Upgrade1</td>
+                        @if (Model.gear.BaseStatTotal.Upgrade2 != null)
+                        {
+                            <td>@Model.gear.BaseStatTotal.Upgrade2</td>
+                            if (Model.gear.BaseStatTotal.Upgrade3 != null)
+                            {
+                                <td>@Model.gear.BaseStatTotal.Upgrade3</td>
+                                if (Model.gear.BaseStatTotal.Upgrade4 != null)
+                                {
+                                    <td>@Model.gear.BaseStatTotal.Upgrade4</td>
+                                }
+                            }
+                        }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @if (Model.Bonussen != null)
+    {
+    <div class="row">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Bonussen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var item in Model.Bonussen)
+                    {
+                        <td>@item.Explanation</td>
+                    }
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    }
+</div>

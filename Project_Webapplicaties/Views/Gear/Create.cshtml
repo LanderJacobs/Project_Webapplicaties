@@ -1,0 +1,133 @@
+﻿@model Project_Webapplicaties.ViewModels.CreateViewModel
+@{ 
+    ViewData["Title"] = "Create";
+}
+
+<h1>Creëer nieuwe uitrusting</h1>
+
+<div class="container">
+    <form>
+        <div class="row mt-2">
+            <div class="col-6">
+                <label>Naam*</label>
+            </div>   
+            <input type="text" asp-for="Naam" class="col-6 form-control"/>
+        </div>
+        <div class="row mt-2">
+            <label class="col-6">Geartype*</label>
+            <div class="col-6">
+                <select class="custom-select" asp-for="GearType">
+                    @foreach (var item in Model.GeartypeList)
+                    {
+                        <option>@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Tier</label>
+            <div class="col-6">
+                <select class="custom-select" asp-for="Tier">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Rank*</label>
+            <div class="col-6">
+                <select class="custom-select" asp-for="Rank">
+                    @foreach (var item in Model.RankList)
+                    {
+                        <option>@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <label class="col-6 mt-2">Element</label>
+            <div class="col-6">
+                <select class="custom-select">
+                    @foreach (var item in Model.ElementList)
+                    {
+                        <option>@item.Name</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Attack</th>
+                        <th>Health</th>
+                        <th>Speed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" asp-for="BaseAttack" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="text" asp-for="BaseHealth" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="text" asp-for="BaseSpeed" class="form-control"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Upgrade 1*</th>
+                        <th>Upgrade 2</th>
+                        <th>Upgrade 3</th>
+                        <th>Upgrade 4</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="number" asp-for="Upgrade1" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" asp-for="Upgrade2" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" asp-for="Upgrade3" class="form-control"/>
+                        </td>
+                        <td>
+                            <input type="number" asp-for="Upgrade4" class="form-control"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Bonus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input type="text" asp-for="bonus" class="form-control"/>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row justify-content-center">
+            <button type="submit" asp-controller="Gear" asp-action="VoegToe" class="form-control btn-primary">Voeg Toe</button>
+        </div>
+    </form>
+</div>
